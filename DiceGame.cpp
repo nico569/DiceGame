@@ -35,6 +35,12 @@ int main()
     {
         player1Score = GetRandomNum();
     }
+    std::cout << "Player 2 press r to roll: \n";
+    std::cin >> in;
+    if (in == "r")
+    {
+        player2Score = GetRandomNum();
+    }
 
 
     int b = 7;
