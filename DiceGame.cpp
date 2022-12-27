@@ -8,6 +8,7 @@
 
 int GetRandomNum();
 
+
 int main()
 {
    
@@ -15,7 +16,7 @@ int main()
     std::string namePlayer2;
 
     int roundsOfPlay = 5; // fixed number of rounds to play
-    int target = 20;
+    int target = 30;
 
     int player1Score = 0;
     int player2Score = 0;
@@ -24,11 +25,16 @@ int main()
 
 
     // Game Start:
-    //std::cout << "Player 1 enter your name: \n";
-    //std::cin >> namePlayer1;
-    //std::cout << "Player 2 enter your name: \n";
-    //std::cin >> namePlayer2;
 
+    // Greeting:
+
+    // Enter names
+    std::cout << "Player 1 enter your name: \n";
+    std::cin >> namePlayer1;
+    std::cout << "Player 2 enter your name: \n";
+    std::cin >> namePlayer2;
+
+    // Main Game loop
     for(int i=0; i< roundsOfPlay; i++)
     { 
         std::cout << "Player 1 press r to roll: \n";
@@ -49,7 +55,18 @@ int main()
         std::cout << "Player 1 Score: " << player1Score << "\n";
         std::cout << "Player 2 Score: " << player2Score << "\n";
     }
-    int b = 7;
+
+    // finish the game and print the winner:
+
+    if (target - player1Score < target - player2Score)
+    {
+        std::cout << "The Winner is: " << namePlayer1 << "\n";
+    }
+    else
+    {
+        std::cout << "The Winner is: " << namePlayer2 << "\n";
+    }
+    
 
 }
 
