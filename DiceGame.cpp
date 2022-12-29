@@ -2,13 +2,8 @@
 // DiceGame.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <chrono>
-#include <thread>
+#include "DiceGame.h"
 
-int GetRandomNum();
 
 
 int main()
@@ -25,6 +20,7 @@ int main()
 
     int numDice = 1;
     int dice1, dice2, dice3;
+    
 
     // Game Start:
 
@@ -52,57 +48,21 @@ int main()
     { 
         std::cout << namePlayer1 <<" press 1,2 or 3 to roll the number of dice you want: \n";
         std::cin >> numDice;
-        if (numDice == 1)
-        {
-            dice1 = GetRandomNum();
-            std::cout << namePlayer1 << " rolled: " << dice1 << "\n" << "\n";
-            player1Score += dice1;
-        }
-        if (numDice == 2)
-        {
-            dice1 = GetRandomNum();
-            dice2 = GetRandomNum();
-            std::cout << namePlayer1 << " rolled: " << dice1 << ", " << dice2 << "\n" << "\n";
-            player1Score += dice1 + dice2;
-        }
-        if (numDice == 3)
-        {
-            dice1 = GetRandomNum();
-            dice2 = GetRandomNum();
-            dice3 = GetRandomNum();
-            std::cout << namePlayer1 << " rolled: " << dice1 << ", " << dice2 << ", " << dice3 << "\n" << "\n";
-            player1Score += dice1 + dice2 + dice3;
-        }
+
+        rollDice(dice, numDice);
+        updatePlayerDiceRolled(dice, numDice, namePlayer1);
+        calcPlayerScore(player1Score, dice, numDice);
+        updatePlayerScore(namePlayer1, player1Score);
 
         std::cout << namePlayer2 << " press 1,2 or 3 to roll the number of dice you want: \n";
         std::cin >> numDice;
-        if (numDice == 1)
-        {
-            dice1 = GetRandomNum();
-            std::cout << namePlayer2 << " rolled: " << dice1 << "\n" << "\n";
-            player2Score += dice1;
-        }
-        if (numDice == 2)
-        {
-            dice1 = GetRandomNum();
-            dice2 = GetRandomNum();
-            std::cout << namePlayer2 << " rolled: " << dice1 << ", " << dice2 << "\n" << "\n";
-            player2Score += dice1 + dice2;
-        }
-        if (numDice == 3)
-        {
-            dice1 = GetRandomNum();
-            dice2 = GetRandomNum();
-            dice3 = GetRandomNum();
-            std::cout << namePlayer2 << " rolled: " << dice1 << ", " << dice2 << ", " << dice3 << "\n" << "\n";
-            player2Score += dice1 + dice2 + dice3;
-        }
 
-        // print result after each round
-        std::cout << "Player 1 Score: " << player1Score << "\n";
-        std::cout << "\n";
-        std::cout << "Player 2 Score: " << player2Score << "\n";
-        std::cout << "\n";
+        rollDice(dice, numDice);
+        updatePlayerDiceRolled(dice, numDice, namePlayer2);
+        calcPlayerScore(player2Score, dice, numDice);
+        updatePlayerScore(namePlayer2, player2Score);
+
+
     }
 
     // finish the game and print the winner:
@@ -142,3 +102,45 @@ int GetRandomNum() // Generate a random number between 1 and 6
     // return std::rand(); // INFO: this also works and does not require a temporary int.
 }
 
+void rollDice(int dice[3], int numberOfDice)
+{
+    for (int i = 0; i < numberOfDice; i++)
+    {
+        dice[i] = GetRandomNum();
+    }
+}
+
+void updatePlayerDiceRolled(int dice[3], int numberOfDice, std::string PlayerName)
+{
+    std::cout << PlayerName << " you've rolled: ";
+    
+    for (int i = 0; i < numberOfDice; i++)
+    {
+        std::cout << dice[i];
+        if (i < (numberOfDice - 1) )
+        {
+            std::cout << ", ";
+        }
+        else
+        {
+            std::cout << "." << "\n";
+        }
+    }
+    
+    std::cout << "\n";
+}
+
+void calcPlayerScore(int& score, int dice[3], int numberOfDice)
+{
+    for (int i = 0; i < numberOfDice; i++)
+    {
+        score += dice[i];
+    }
+
+}
+
+void updatePlayerScore(std::string PlayerName, int score)
+{
+    std::cout << PlayerName << " your current score is: " << score << "\n";
+    std::cout << "\n";
+}
