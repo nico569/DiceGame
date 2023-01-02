@@ -19,9 +19,7 @@ int main()
     int player2Score = 0;
 
     int numDice = 1;
-    int dice1, dice2, dice3;
     
-
     // Game Start:
 
     // Greeting:
@@ -51,7 +49,7 @@ int main()
 
         rollDice(dice, numDice);
         updatePlayerDiceRolled(dice, numDice, namePlayer1);
-        calcPlayerScore(player1Score, dice, numDice);
+        calcPlayerScore(player1Score, dice, numDice, target, namePlayer1);
         updatePlayerScore(namePlayer1, player1Score);
 
         std::cout << namePlayer2 << " press 1,2 or 3 to roll the number of dice you want: \n";
@@ -59,13 +57,13 @@ int main()
 
         rollDice(dice, numDice);
         updatePlayerDiceRolled(dice, numDice, namePlayer2);
-        calcPlayerScore(player2Score, dice, numDice);
+        calcPlayerScore(player2Score, dice, numDice, target, namePlayer2);
         updatePlayerScore(namePlayer2, player2Score);
 
 
     }
 
-    // finish the game and print the winner:
+    // finish the game and calc and print the winner:
 
     if (target - player1Score == target - player2Score)
     {
@@ -130,17 +128,30 @@ void updatePlayerDiceRolled(int dice[3], int numberOfDice, std::string PlayerNam
     std::cout << "\n";
 }
 
-void calcPlayerScore(int& score, int dice[3], int numberOfDice)
+void calcPlayerScore(int& score, int dice[3], int numberOfDice, int target, std::string PlayerName)
 {
     for (int i = 0; i < numberOfDice; i++)
     {
         score += dice[i];
+            // che4ck if bust:
+            if (score >= target)
+            {
+                score = (score - target);
+                // update the player:
+                updatePlayerScoreBustTarget(PlayerName, score);
+            }
     }
-
 }
 
 void updatePlayerScore(std::string PlayerName, int score)
 {
     std::cout << PlayerName << " your current score is: " << score << "\n";
+    std::cout << "\n";
+}
+
+void updatePlayerScoreBustTarget(std::string PlayerName, int score)
+{
+    std::cout << PlayerName << " you bust the target your score was reset to zero and the excess was added. \n";
+    std::cout <<  " Your new score is: " << score << "\n";
     std::cout << "\n";
 }
