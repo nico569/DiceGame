@@ -19,3 +19,7 @@ void updatePlayerScore(std::string PlayerName, int score);
 void updatePlayerScoreBustTarget(std::string PlayerName, int score);
 
 int dice[3] = { 0 };
+
+int readInt(std::istream& stream);
+
+std::string readString(std::istream& stream);
