@@ -44,36 +44,34 @@ int main()
     { 
         std::cout << player1.getName() <<" press 1,2 or 3 to roll the number of dice you want: \n";
         std::cin >> numDice;
-
         rollDice(dice, numDice);
         updatePlayerDiceRolled(dice, numDice, player1.getName());
-        calcPlayerScore(player1.getScore(), dice, numDice, target, player1.getName());
-        updatePlayerScore(player1.getName(), player1.getName());
+        player1.calcPlayerScore(dice, numDice, target);
+        updatePlayerScore(player1.getName(), player1.getScore());
 
-        std::cout << player2.name << " press 1,2 or 3 to roll the number of dice you want: \n";
+        std::cout << player2.getName() << " press 1,2 or 3 to roll the number of dice you want: \n";
         std::cin >> numDice;
-
         rollDice(dice, numDice);
-        updatePlayerDiceRolled(dice, numDice, player2.name);
-        calcPlayerScore(player2.score, dice, numDice, target, player2.name);
-        updatePlayerScore(player2.name, player2.score);
+        updatePlayerDiceRolled(dice, numDice, player2.getName());
+        player2.calcPlayerScore(dice, numDice, target);
+        updatePlayerScore(player2.getName(), player2.getScore());
 
 
     }
 
     // finish the game and calc and print the winner:
 
-    if (target - player1.score == target - player2.score)
+    if (target - player1.getScore() == target - player2.getScore())
     {
         std::cout << "Its a Draw! \n";
     }
-    else if (target - player1.score < target - player2.score)
+    else if (target - player1.getScore() < target - player2.getScore())
     {
-        std::cout << "The Winner is: " << player1.name << "\n";
+        std::cout << "The Winner is: " << player1.getName() << "\n";
     }
     else
     {
-        std::cout << "The Winner is: " << player2.name << "\n";
+        std::cout << "The Winner is: " << player2.getName() << "\n";
     }
     
 
@@ -126,31 +124,9 @@ void updatePlayerDiceRolled(int dice[3], int numberOfDice, std::string PlayerNam
     std::cout << "\n";
 }
 
-void calcPlayerScore(int& score, int dice[3], int numberOfDice, int target, std::string PlayerName)
-{
-    for (int i = 0; i < numberOfDice; i++)
-    {
-        score += dice[i];
-            // che4ck if bust:
-            if (score >= target)
-            {
-                score = (score - target);
-                // update the player:
-                updatePlayerScoreBustTarget(PlayerName, score);
-            }
-    }
-}
-
 void updatePlayerScore(std::string PlayerName, int score)
 {
     std::cout << PlayerName << " your current score is: " << score << "\n";
-    std::cout << "\n";
-}
-
-void updatePlayerScoreBustTarget(std::string PlayerName, int score)
-{
-    std::cout << PlayerName << " you bust the target your score was reset to zero and the excess was added. \n";
-    std::cout <<  " Your new score is: " << score << "\n";
     std::cout << "\n";
 }
 
