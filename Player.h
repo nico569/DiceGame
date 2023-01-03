@@ -1,8 +1,10 @@
 #pragma once
 
+#include <iostream>
 #include <string>
+#include "RandomNumberGenerator.h"
 
-class Player
+class Player : public RandomNumberGenerator
 {
 public:
 	// constructor:
@@ -11,6 +13,7 @@ public:
 		// initialise member variables
 		setName("not set");
 		setScore(0);
+		resetDice();
 
 	}
 	// destructor:
@@ -22,6 +25,9 @@ public:
 private:
 	std::string name;
 	int score;
+	int dice[3];
+
+	void resetDice();
 
 public:
 
@@ -31,7 +37,12 @@ public:
 	int getScore();
 	void setScore(int new_score);
 
-	void calcPlayerScore(int dice[3], int numberOfDice, int target);
-	// roll the dice
+	void calcPlayerScore(int numberOfDice, int target);
+	  
+	void rollDice(int numberOfDice);
+
+	void LogDiceRolled(int numberOfDice);
+
+	void LogScore();
 };
 
