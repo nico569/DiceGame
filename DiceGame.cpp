@@ -13,8 +13,6 @@ int main()
 
     int roundsOfPlay = 1; // fixed number of rounds to play
     int target = 30;
-
-    int numDice = 1;
     
     // Game Start:
 
@@ -27,6 +25,10 @@ int main()
     // work out the target based on the number of rounds 
     RandomNumberGenerator randomNumber;
     target = roundsOfPlay * 3 * randomNumber.GetRandomNum();
+    // upodate each player with the tageret score:
+    player1.setTargetScore(target);
+    player2.setTargetScore(target);
+    // tell the players the target score
     std::cout << "The target you are trying to get closest to is: " << target << "\n";
     std::cout << "\n";
 
@@ -41,21 +43,10 @@ int main()
     // Main Game loop
     for(int i=0; i< roundsOfPlay; i++)
     { 
-        std::cout << player1.getName() <<" press 1,2 or 3 to roll the number of dice you want: \n";
-        std::cin >> numDice;
-
-
-        player1.rollDice(numDice);
-        player1.LogDiceRolled(numDice);
-        player1.calcPlayerScore(numDice, target);
-        player1.LogScore();
-
-        std::cout << player2.getName() << " press 1,2 or 3 to roll the number of dice you want: \n";
-        std::cin >> numDice;
-        player2.rollDice(numDice);
-        player2.LogDiceRolled(numDice);
-        player2.calcPlayerScore(numDice, target);
-        player2.LogScore();
+        player1.LogQueryNumDice();
+        player1.goPlay(readInt(std::cin));
+        player2.LogQueryNumDice();
+        player2.goPlay(readInt(std::cin));
 
     }
 

@@ -14,7 +14,8 @@ public:
 		setName("not set");
 		setScore(0);
 		resetDice();
-
+		initNumDice();
+		targetScore = 1000;
 	}
 	// destructor:
 	~Player()
@@ -26,21 +27,30 @@ private:
 	std::string name;
 	int score;
 	int dice[3];
+	int numberOfDice;
+	int targetScore;
 
 	void resetDice();
+	void initNumDice();
 
 public:
 
 	void setName(std::string new_name);
 	std::string getName();
 
+	void setTargetScore(int new_targetScore);
+
+	void goPlay(int numDice);
+
+	void LogQueryNumDice();
+
 	void setNumberDiceToRoll(int numDice);
 
-	void rollDice(int numberOfDice);
+	void rollDice();
 
-	void LogDiceRolled(int numberOfDice);
+	void LogDiceRolled();
 
-	void calcPlayerScore(int numberOfDice, int target);
+	void calcPlayerScore();
 
 	void setScore(int new_score);
 	int getScore();

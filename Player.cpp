@@ -8,6 +8,11 @@ void Player::resetDice()
     }
 }
 
+void Player::initNumDice()
+{
+    numberOfDice = 1;
+}
+
 void Player::setName(std::string new_name)
 {
 	name = new_name;
@@ -18,12 +23,32 @@ std::string Player::getName()
 	return name;
 }
 
-void Player::setNumberDiceToRoll(int numDice)
+void Player::setTargetScore(int new_targetScore)
 {
-
+    targetScore = new_targetScore;
 }
 
-void Player::rollDice(int numberOfDice)
+void Player::goPlay(int numDice)
+{
+    
+    setNumberDiceToRoll(numDice);
+    rollDice();
+    LogDiceRolled();
+    calcPlayerScore();
+    LogScore();
+}
+
+void Player::LogQueryNumDice()
+{
+    std::cout << getName() << " press 1,2 or 3 to roll the number of dice you want: \n";
+}
+
+void Player::setNumberDiceToRoll(int numDice)
+{
+    numberOfDice = numDice;
+}
+
+void Player::rollDice()
 {
     resetDice();
 
@@ -32,7 +57,8 @@ void Player::rollDice(int numberOfDice)
         dice[i] = GetRandomNum();
     }
 }
-void Player::LogDiceRolled(int numberOfDice)
+
+void Player::LogDiceRolled()
 {
     std::cout << getName() << " you've rolled: ";
 
@@ -52,15 +78,15 @@ void Player::LogDiceRolled(int numberOfDice)
     std::cout << "\n";
 }
 
-void Player::calcPlayerScore(int numberOfDice, int target)
+void Player::calcPlayerScore()
 {
     for (int i = 0; i < numberOfDice; i++)
     {
         score += dice[i];
         // check if bust:
-        if (score >= target)
+        if (score >= targetScore)
         {
-            score = (score - target);
+            score = (score - targetScore);
 
         }
     }
