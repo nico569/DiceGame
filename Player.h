@@ -31,17 +31,19 @@ private:
 
 public:
 
-	std::string getName();
 	void setName(std::string new_name);
+	std::string getName();
 
-	int getScore();
-	void setScore(int new_score);
+	void setNumberDiceToRoll(int numDice);
 
-	void calcPlayerScore(int numberOfDice, int target);
-	  
 	void rollDice(int numberOfDice);
 
 	void LogDiceRolled(int numberOfDice);
+
+	void calcPlayerScore(int numberOfDice, int target);
+
+	void setScore(int new_score);
+	int getScore();
 
 	void LogScore();
 };

@@ -43,6 +43,8 @@ int main()
     { 
         std::cout << player1.getName() <<" press 1,2 or 3 to roll the number of dice you want: \n";
         std::cin >> numDice;
+
+
         player1.rollDice(numDice);
         player1.LogDiceRolled(numDice);
         player1.calcPlayerScore(numDice, target);
