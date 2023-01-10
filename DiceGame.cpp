@@ -6,12 +6,12 @@
 #include "DiceGameCore.h"
 #include "Player.h"
 
+
 int main()
 {
     DiceGameCore diceGameCore;
-   
-    Player player1;
-    Player player2;
+
+    std::vector<Player> players;
 
     // Game Start:
 
@@ -23,51 +23,49 @@ int main()
     diceGameCore.setNumberOfPLayers(readInt(std::cin));
 
     std::cout << "How many rounds do you want to play?\n";
-    diceGameCore.setRoundsOfPlay(readInt(std::cin));
+    diceGameCore.setRoundsOfPlay(readInt(std::cin));   
 
     diceGameCore.calcTarget();
-
-    // update each player with the targeet score:
-    player1.setTargetScore(diceGameCore.getTarget());
-    player2.setTargetScore(diceGameCore.getTarget());
 
     // tell the players the target score
     std::cout << "The target you are trying to get closest to is: " << diceGameCore.getTarget() << "\n";
     std::cout << "\n";
 
     // Enter names
-    std::cout << "Player 1 enter your name: \n";
-    player1.setName(readString(std::cin));
-    std::cout << "\n";
-
-    std::cout << "Player 2 enter your name: \n";
-    player2.setName(readString(std::cin));
-    std::cout << "\n";
+    for (int i = 0; i < diceGameCore.getNumberOfPlayers(); i++)
+    {
+        players.emplace_back();
+        players[i].setTargetScore(diceGameCore.getTarget());
+        std::cout << "Player " << (i+1) << " enter your name: \n";
+        players[i].setName(readString(std::cin));
+        std::cout << "\n";
+    }
 
     // Main Game loop
     for(int i=0; i< diceGameCore.getRoundsOfPlay(); i++)
     { 
-        player1.LogQueryNumDice();
-        player1.goPlay(readInt(std::cin));
-
-        player2.LogQueryNumDice();
-        player2.goPlay(readInt(std::cin));
+        for (int i = 0; i < diceGameCore.getNumberOfPlayers(); i++)
+        {
+            players[i].LogQueryNumDice();
+            players[i].goPlay(readInt(std::cin));
+        }
 
     }
 
     // finish the game and calc and print the winner:
 
-    if (diceGameCore.getTarget() - player1.getScore() == diceGameCore.getTarget() - player2.getScore())
+    // TODO: remove the hard coded indices and move this function into the diceGameCore evaluating for n Players:
+    if (diceGameCore.getTarget() - players[0].getScore() == diceGameCore.getTarget() - players[1].getScore())
     {
         std::cout << "Its a Draw! \n";
     }
-    else if (diceGameCore.getTarget() - player1.getScore() < diceGameCore.getTarget() - player2.getScore())
+    else if (diceGameCore.getTarget() - players[0].getScore() < diceGameCore.getTarget() - players[1].getScore())
     {
-        std::cout << "The Winner is: " << player1.getName() << "\n";
+        std::cout << "The Winner is: " << players[0].getName() << "\n";
     }
     else
     {
-        std::cout << "The Winner is: " << player2.getName() << "\n";
+        std::cout << "The Winner is: " << players[1].getName() << "\n";
     }
     
 

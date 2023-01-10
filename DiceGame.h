@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 
 int readInt(std::istream& stream);
