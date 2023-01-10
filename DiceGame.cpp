@@ -27,7 +27,7 @@ int main()
 
     diceGameCore.calcTarget();
 
-    // upodate each player with the tageret score:
+    // update each player with the targeet score:
     player1.setTargetScore(diceGameCore.getTarget());
     player2.setTargetScore(diceGameCore.getTarget());
 
@@ -49,6 +49,7 @@ int main()
     { 
         player1.LogQueryNumDice();
         player1.goPlay(readInt(std::cin));
+
         player2.LogQueryNumDice();
         player2.goPlay(readInt(std::cin));
 
