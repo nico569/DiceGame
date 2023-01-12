@@ -44,6 +44,12 @@ int main()
     // Main Game loop
     for(int i=0; i< diceGameCore.getRoundsOfPlay(); i++)
     { 
+        std::cout << "========= " << "\n";
+        std::cout << "Round: "<< i+1 << "\n";
+        std::cout << "========= " << "\n";
+        std::cout << "\n";
+
+
         for (int i = 0; i < diceGameCore.getNumberOfPlayers(); i++)
         {
             players[i].LogQueryNumDice();
@@ -54,21 +60,43 @@ int main()
 
     // finish the game and calc and print the winner:
 
-    // TODO: remove the hard coded indices and move this function into the diceGameCore evaluating for n Players:
-    if (diceGameCore.getTarget() - players[0].getScore() == diceGameCore.getTarget() - players[1].getScore())
+    // find winner or winners
+    int max = 0;
+    int winnerIdx = 0;
+
+    for (int i = 0; i < diceGameCore.getNumberOfPlayers(); i++)
     {
-        std::cout << "Its a Draw! \n";
+        if (max < players[i].getScore())
+        {
+            max = players[i].getScore();
+            winnerIdx = i;
+        }
+    }   
+
+    std::vector <int> winners;     
+    for (int i = 0; i < diceGameCore.getNumberOfPlayers(); i++)
+    {
+        if (max == players[i].getScore())
+        {
+            winners.emplace_back(i);
+        }
     }
-    else if (diceGameCore.getTarget() - players[0].getScore() < diceGameCore.getTarget() - players[1].getScore())
+
+    // if there is only one winner:
+    if (winners.size() == 1)
     {
-        std::cout << "The Winner is: " << players[0].getName() << "\n";
+        std::cout << "The Winner is: " << players[winnerIdx].getName() << "\n";
     }
-    else
+    else // if there is more than one winner:
     {
-        std::cout << "The Winner is: " << players[1].getName() << "\n";
+        std::cout << "The joined Winners are:" << "\n";
+        for (int i = 0; i < winners.size(); i++)
+        {
+            std::cout << players[i].getName() << "\n";
+        }
+
     }
     
-
 }
 
 
